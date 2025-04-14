@@ -1,0 +1,276 @@
+ASUS@AAYUSHPC MINGW64 ~
+$ minikube start
+* minikube v1.35.0 on Microsoft Windows 11 Home Single Language 10.0.26100.3775 Build 26100.3775
+* Unable to pick a default driver. Here is what was considered, in preference order:
+  - docker: Not healthy: "docker version --format {{.Server.Os}}-{{.Server.Version}}:{{.Server.Platform.Name}}" exit status 1: error during connect: Get "http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/v1.47/version": open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.
+  - docker: Suggestion:  <https://minikube.sigs.k8s.io/docs/drivers/docker/>
+  - hyperv: Not healthy: Hyper-V requires Administrator privileges
+  - hyperv: Suggestion: Right-click the PowerShell icon and select Run as Administrator to open PowerShell in elevated mode. <>
+* Alternatively you could install one of these drivers:
+  - virtualbox: Not installed: unable to find VBoxManage in $PATH
+  - podman: Not installed: exec: "podman": executable file not found in %PATH%
+  - qemu2: Not installed: exec: "qemu-system-x86_64": executable file not found in %PATH%
+
+X Exiting due to DRV_NOT_HEALTHY: Found driver(s) but none were healthy. See above for suggestions how to fix installed drivers.
+
+
+ASUS@AAYUSHPC MINGW64 ~
+$ mkdir k8s-minikube-deployment
+cd k8s-minikube-deployment
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ screenshots
+bash: screenshots: command not found
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ mkdir screenshots
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ touch deployment.yaml service.yaml README.md
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ ls
+README.md  deployment.yaml  screenshots/  service.yaml
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ nano deployment.yaml
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ kubectl apply -f deployment.yaml
+error: error validating "deployment.yaml": error validating data: failed to download openapi: Get "http://localhost:8080/openapi/v2?timeout=32s": dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it.; if you choose to ignore these errors, turn validation off with --validate=false
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ minikube start
+* minikube v1.35.0 on Microsoft Windows 11 Home Single Language 10.0.26100.3775 Build 26100.3775
+* Unable to pick a default driver. Here is what was considered, in preference order:
+  - docker: Not healthy: "docker version --format {{.Server.Os}}-{{.Server.Version}}:{{.Server.Platform.Name}}" exit status 1: error during connect: Get "http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/v1.47/version": open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.
+  - docker: Suggestion:  <https://minikube.sigs.k8s.io/docs/drivers/docker/>
+  - hyperv: Not healthy: Hyper-V requires Administrator privileges
+  - hyperv: Suggestion: Right-click the PowerShell icon and select Run as Administrator to open PowerShell in elevated mode. <>
+* Alternatively you could install one of these drivers:
+  - virtualbox: Not installed: unable to find VBoxManage in $PATH
+  - qemu2: Not installed: exec: "qemu-system-x86_64": executable file not found in %PATH%
+  - podman: Not installed: exec: "podman": executable file not found in %PATH%
+
+X Exiting due to DRV_NOT_HEALTHY: Found driver(s) but none were healthy. See above for suggestions how to fix installed drivers.
+
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ minikube start
+* minikube v1.35.0 on Microsoft Windows 11 Home Single Language 10.0.26100.3775 Build 26100.3775
+* Automatically selected the docker driver
+* Using Docker Desktop driver with root privileges
+* Starting "minikube" primary control-plane node in "minikube" cluster
+* Pulling base image v0.0.46 ...
+* Downloading Kubernetes v1.32.0 preload ...
+    > gcr.io/k8s-minikube/kicbase...:  0 B [_____________________] ?% ? p/s 22s
+    > gcr.io/k8s-minikube/kicbase...:  500.31 MiB / 500.31 MiB  100.00% 5.77 Mi
+* Creating docker container (CPUs=2, Memory=2200MB) ...
+! Failing to connect to https://registry.k8s.io/ from inside the minikube container
+* To pull new external images, you may need to configure a proxy: https://minikube.sigs.k8s.io/docs/reference/networking/proxy/
+* Preparing Kubernetes v1.32.0 on Docker 27.4.1 ...
+  - Generating certificates and keys ...
+  - Booting up control plane ...
+  - Configuring RBAC rules ...
+* Configuring bridge CNI (Container Networking Interface) ...
+* Verifying Kubernetes components...
+  - Using image gcr.io/k8s-minikube/storage-provisioner:v5
+* Enabled addons: storage-provisioner, default-storageclass
+* Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ kubectl apply -f deployment.yaml
+deployment.apps/my-nginx-deployment created
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ kubectl get deployments
+kubectl get pods
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+my-nginx-deployment   0/2     2            0           20s
+NAME                                   READY   STATUS              RESTARTS   AGE
+my-nginx-deployment-7748d65647-fbz8d   0/1     ContainerCreating   0          21s
+my-nginx-deployment-7748d65647-px952   0/1     ContainerCreating   0          21s
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ nano service.yaml
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ kubectl apply -f service.yaml
+service/nginx-service created
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ kubectl get services
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP        113s
+nginx-service   NodePort    10.101.84.183   <none>        80:30007/TCP   4s
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ kubectl get services
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP        2m2s
+nginx-service   NodePort    10.101.84.183   <none>        80:30007/TCP   13s
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ minikube service nginx-service
+|-----------|---------------|-------------|---------------------------|
+| NAMESPACE |     NAME      | TARGET PORT |            URL            |
+|-----------|---------------|-------------|---------------------------|
+| default   | nginx-service |          80 | http://192.168.49.2:30007 |
+|-----------|---------------|-------------|---------------------------|
+* Starting tunnel for service nginx-service.
+|-----------|---------------|-------------|------------------------|
+| NAMESPACE |     NAME      | TARGET PORT |          URL           |
+|-----------|---------------|-------------|------------------------|
+| default   | nginx-service |             | http://127.0.0.1:51344 |
+|-----------|---------------|-------------|------------------------|
+* Opening service default/nginx-service in default browser...
+! Because you are using a Docker driver on windows, the terminal needs to be open to run it.
+* Stopping tunnel for service nginx-service.
+
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ kubectl scale deployment my-nginx-deployment --replicas=4
+deployment.apps/my-nginx-deployment scaled
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+my-nginx-deployment-7748d65647-9z2f4   1/1     Running   0          8s
+my-nginx-deployment-7748d65647-fbz8d   1/1     Running   0          2m59s
+my-nginx-deployment-7748d65647-px952   1/1     Running   0          2m59s
+my-nginx-deployment-7748d65647-qbhgx   1/1     Running   0          8s
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+my-nginx-deployment-7748d65647-9z2f4   1/1     Running   0          28s
+my-nginx-deployment-7748d65647-fbz8d   1/1     Running   0          3m19s
+my-nginx-deployment-7748d65647-px952   1/1     Running   0          3m19s
+my-nginx-deployment-7748d65647-qbhgx   1/1     Running   0          28s
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ kubectl describe pod my-nginx-deployment-7748d65647-qbhgx
+Name:             my-nginx-deployment-7748d65647-qbhgx
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Mon, 14 Apr 2025 21:30:44 +0530
+Labels:           app=my-nginx
+                  pod-template-hash=7748d65647
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.6
+IPs:
+  IP:           10.244.0.6
+Controlled By:  ReplicaSet/my-nginx-deployment-7748d65647
+Containers:
+  nginx-container:
+    Container ID:   docker://b77af0a08bc3b6de3f3cc5dad7a3fc19075ada5e5e2518433fefd9ef11f3b50b
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:09369da6b10306312cd908661320086bf87fbae1b6b0c49a1f50ba531fef2eab
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 14 Apr 2025 21:30:50 +0530
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-q5xdf (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 True
+  Ready                       True
+  ContainersReady             True
+  PodScheduled                True
+Volumes:
+  kube-api-access-q5xdf:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  59s   default-scheduler  Successfully assigned default/my-nginx-deployment-7748d65647-qbhgx to minikube
+  Normal  Pulling    59s   kubelet            Pulling image "nginx"
+  Normal  Pulled     53s   kubelet            Successfully pulled image "nginx" in 2.63s (5.744s including waiting). Image size: 192056179 bytes.
+  Normal  Created    53s   kubelet            Created container: nginx-container
+  Normal  Started    53s   kubelet            Started container nginx-container
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment
+$ git init
+Initialized empty Git repository in C:/Users/ASUS/k8s-minikube-deployment/.git/
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment (master)
+$ git add .
+warning: in the working copy of 'deployment.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'service.yaml', LF will be replaced by CRLF the next time Git touches it
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment (master)
+$ git branch -M main
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment (main)
+$ git remote add origin https://github.com/its-tsukii/k8s-minikube-deployment.git
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment (main)
+$ git push -u origin main
+error: src refspec main does not match any
+error: failed to push some refs to 'https://github.com/its-tsukii/k8s-minikube-deployment.git'
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment (main)
+$ git push -u origin main
+error: src refspec main does not match any
+error: failed to push some refs to 'https://github.com/its-tsukii/k8s-minikube-deployment.git'
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment (main)
+$ git remote add origin https://github.com/its-tsukii/k8s-minikube-deployment
+error: remote origin already exists.
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment (main)
+$ git push -u origin main
+error: src refspec main does not match any
+error: failed to push some refs to 'https://github.com/its-tsukii/k8s-minikube-deployment.git'
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment (main)
+$ git add .
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment (main)
+$ git commit -m "Initial commit for kubernets Minikube project "
+[main (root-commit) 7a1fccf] Initial commit for kubernets Minikube project
+ 10 files changed, 31 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 deployment.yaml
+ create mode 100644 screenshots/describe-pod.png
+ create mode 100644 screenshots/get-pods.png
+ create mode 100644 screenshots/get-services.png
+ create mode 100644 screenshots/localhost.png
+ create mode 100644 screenshots/minikube-start.png
+ create mode 100644 screenshots/output.png
+ create mode 100644 screenshots/scaled-pods.png
+ create mode 100644 service.yaml
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment (main)
+$ git branch -M main
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment (main)
+$ git push -u origin main
+Enumerating objects: 13, done.
+Counting objects: 100% (13/13), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (12/12), done.
+Writing objects: 100% (13/13), 281.19 KiB | 21.63 MiB/s, done.
+Total 13 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/its-tsukii/k8s-minikube-deployment.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+
+ASUS@AAYUSHPC MINGW64 ~/k8s-minikube-deployment (main)
+$ nano logs.txt
