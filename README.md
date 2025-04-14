@@ -94,9 +94,9 @@ minikube service <svc-name>      # Launch in browser
 ```
 
 📬 About Me
-Aayush Kukade
-🌐 LinkedIn -- https://www.linkedin.com/in/aayushkukade/
-🐙 GitHub -- https://github.com/its-tsukii/
-🔉 Medium -- https://medium.com/@sroy10012001 #Find the whole story on medium along with my other endeavors 
+<br>Aayush Kukade
+<br>🌐 LinkedIn -- https://www.linkedin.com/in/aayushkukade/
+<br>🐙 GitHub -- https://github.com/its-tsukii/
+<br>🔉 Medium -- https://medium.com/@sroy10012001 #Find the whole story on medium along with my other endeavors 
 
 Thanks for scrolling to the bottom. You get a cookie 🍪
