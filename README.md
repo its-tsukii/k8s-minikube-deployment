@@ -98,5 +98,6 @@ minikube service <svc-name>      # Launch in browser
 <br>🌐 LinkedIn -- https://www.linkedin.com/in/aayushkukade/
 <br>🐙 GitHub -- https://github.com/its-tsukii/
 <br>🔉 Medium -- https://medium.com/@sroy10012001 #Find the whole story on medium along with my other endeavors 
+<br>└── This Repo Blog Here : https://medium.com/@sroy10012001/kubernetes-deployment-with-minikube-scalable-nginx-on-your-local-cluster-783decdbdec8
 
 Thanks for scrolling to the bottom. You get a cookie 🍪
